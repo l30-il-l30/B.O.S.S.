@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  website:
+    build:
+      context: ./site
+      dockerfile: Dockerfile
+    ports:
+      - "2000:3000"
+    volumes:
+      - /home/node/boss/site/src/:/boss/src/
+      - /home/node/boss/site/public/:/boss/public/
+    restart: unless-stopped
