@@ -105,9 +105,22 @@ export const IDE: React.FC<configIDE> = ({ codeData, output }) => {
     };
 
     const handleCopyCode = () => {
-        navigator.clipboard.writeText(selectedCode)
-            .then(() => alert('Codice copiato con successo!'))
-            .catch(err => console.error('Errore durante la copia del codice:', err));
+        const textToCopy = selectedCode;
+    
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => alert('Codice copiato con successo!'))
+                .catch(err => console.error('Errore durante la copia del codice:', err));
+        } else {
+            // Fallback for browsers that don't support navigator.clipboard
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('Codice copiato con successo!');
+        }
     };
 
     const LanguageButton: React.FC<{ language: string }> = ({ language }) => {
