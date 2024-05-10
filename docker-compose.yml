@@ -8,6 +8,6 @@ services:
     ports:
       - "2000:3000"
     volumes:
-      - /home/node/boss/site/src/:/boss/src/
-      - /home/node/boss/site/public/:/boss/public/
+      - ./site/src/:/boss/src/
+      - ./site/public/:/boss/public/
     restart: unless-stopped
